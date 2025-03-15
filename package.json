@@ -18,16 +18,18 @@
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@typed-sigterm/eslint-config": "^1.4.1",
-    "@types/chrome": "^0.0.280",
+    "@types/chrome": "^0.0.309",
     "@wxt-dev/auto-icons": "^1.0.2",
-    "@wxt-dev/module-vue": "^1.0.1",
     "consola": "^3.4.0",
     "husky": "^9.1.7",
     "iconify-icon": "^2.3.0",
-    "typescript": "5.6.3",
+    "typescript": "^5.8.2",
     "wxt": "^0.19.29"
   },
   "trustedDependencies": [
+    "dtrace-provider",
+    "esbuild",
+    "sharp",
     "spawn-sync"
   ]
 }
