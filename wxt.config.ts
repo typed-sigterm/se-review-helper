@@ -11,7 +11,7 @@ export default defineConfig({
   manifest: {
     name: 'SE Review Helper',
     default_locale: 'en',
-    description: 'A toolbox to enhance Stack Exchange review queues experience.',
+    description: 'Detect audits in Stack Exchange review queues.',
     version,
     web_accessible_resources: [{
       resources: ['iconify.js'],

@@ -1,11 +1,16 @@
 # SE Review Helper
 
-A toolbox to enhance [Stack Exchange review queues](https://meta.stackexchange.com/help/reviews-intro) experience.
+Detect audits in [Stack Exchange review queues](https://meta.stackexchange.com/help/reviews-intro).
 
 ## Features
 
-- Detect audits in review queues
-- ... WIP
+The extension will verify every review task as soon as the task is loaded.
+
+If the review is an **positive audit[^1],
+<img style="vertical-align: -.25em" src="https://api.iconify.design/mdi/text-box-check.svg?color=%2318864B">
+will be added beside the <kbd>Skip</kbd> button. If it's a negative audit[^2],
+<img style="vertical-align: -.25em" src="https://api.iconify.design/mdi/text-box-remove.svg?color=%23C83232">
+will be added.
 
 ## Installation
 
@@ -19,3 +24,7 @@ It's provided as a Web Extension. You can install it:
 The extension does not send any data to any server except the Stack Exchange API.
 
 The extension uses some internal APIs of Stack Exchange, which may change at any time. Use it at your own risk, though it's unlikely to cause any harm.
+
+[^1]: Positive audits are the audits that you should click <kbd>Looks OK</kbd> or <kbd>Edit</kbd> for.
+
+[^2]: Negative audits are the audits that you should **not** click <kbd>Looks OK</kbd> for.
