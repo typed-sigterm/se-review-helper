@@ -1,3 +1,5 @@
+import { sendMessage } from '@/utils/messaging';
+
 const ReviewTaskType = {
   'first-answers': '13',
   'first-questions': '12',
@@ -18,16 +20,6 @@ async function fetchReviewInfo(id: string, type: keyof typeof ReviewTaskType) {
     isUnavailable: boolean
     postId: number
   }>;
-}
-
-async function isPostOkay(id: number) {
-  const req = await fetch(`https://api.stackexchange.com/2.3/posts/${id}/?site=stackoverflow&key=${SE_API_KEY}`, {
-    cache: 'force-cache',
-  });
-  if (req.status.toString()[0] === '4')
-    return false;
-  const data = await req.json() as { items?: unknown[] };
-  return !!data.items && data.items.length > 0;
 }
 
 type Container = HTMLDivElement;
@@ -57,7 +49,7 @@ function waitContainer() {
   });
 }
 
-const URL_RE = /https:\/\/stackoverflow.com\/review\/(?<type>first-answers|first-questions|late-answers)\/(?<id>\d+)/;
+const URL_PATH_RE = /\/review\/(?<type>first-answers|first-questions|late-answers)\/(?<id>\d+)/;
 
 function createAuditInfo() {
   const area = document.createElement('div');
@@ -69,7 +61,7 @@ function createAuditInfo() {
   const spinner = createIcon('line-md:loading-loop'); // mdi-loading is missing animation
   area.appendChild(spinner);
 
-  const match = URL_RE.exec(location.href)?.groups;
+  const match = URL_PATH_RE.exec(location.pathname)?.groups;
   if (!match)
     throw new Error('URL format mismatch');
 
@@ -78,7 +70,7 @@ function createAuditInfo() {
     .then((info) => {
       if (info.isUnavailable || !info.isAudit)
         return;
-      return isPostOkay(info.postId);
+      return sendMessage('isPostOkay', { site: location.hostname, id: info.postId });
     })
     .finally(() => spinner.remove())
 
@@ -104,9 +96,9 @@ function createAuditInfo() {
 }
 
 function rerunWhenTaskChange(cb: () => void) {
-  let currentId = URL_RE.exec(location.href)?.groups?.id;
+  let currentId = URL_PATH_RE.exec(location.href)?.groups?.id;
   const observer = new MutationObserver(() => {
-    const id = URL_RE.exec(location.href)?.groups?.id;
+    const id = URL_PATH_RE.exec(location.href)?.groups?.id;
     if (id !== currentId) {
       currentId = id;
       cb();
@@ -120,11 +112,7 @@ function rerunWhenTaskChange(cb: () => void) {
 }
 
 export default defineContentScript({
-  matches: [
-    'https://stackoverflow.com/review/first-answers/*',
-    'https://stackoverflow.com/review/first-questions/*',
-    'https://stackoverflow.com/review/late-answers/*',
-  ],
+  matches: MATCH_URLS,
 
   async main() {
     welcome();
