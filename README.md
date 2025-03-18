@@ -16,7 +16,7 @@ will be added.
 
 It's provided as a Web Extension. You can install it:
 
-- from [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons)
+- from [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/pjbldmpcjjlofllkkoaceobegakffndb)
 - from GitHub releases
 
 ## Security & Privacy
