@@ -78,7 +78,10 @@ function createAuditInfo() {
       } else {
         logger.debug('Audit answer:', ok);
         area.style.cursor = 'help';
-        const icon = createIcon('mdi:text-box-check', `Known ${ok ? 'positive' : 'negative'} audit`);
+        const icon = createIcon(
+          ok ? 'mdi:text-box-check' : 'mdi:text-box-remove',
+          `Known ${ok ? 'positive' : 'negative'} audit`,
+        );
         area.appendChild(icon);
         area.classList.add(ok ? 'fc-success' : 'fc-danger'); // from stackoverflow.design
       }
