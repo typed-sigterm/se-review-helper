@@ -12,7 +12,7 @@ export default defineBackground({
       if (req.status.toString()[0] === '4')
         return false;
       const res = await req.json() as { items?: unknown[] };
-      return !(!!res.items && res.items.length > 0);
+      return !!res.items && res.items.length > 0;
     });
   },
 });
