@@ -1,5 +1,3 @@
-import { onMessage } from '@/utils/messaging';
-
 export default defineBackground({
   persistent: false,
 

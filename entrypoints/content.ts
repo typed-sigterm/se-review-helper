@@ -1,5 +1,3 @@
-import { sendMessage } from '@/utils/messaging';
-
 const ReviewTaskType = {
   'first-answers': '13',
   'first-questions': '12',

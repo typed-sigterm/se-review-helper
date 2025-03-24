@@ -15,8 +15,9 @@ export const UsedIcons = [
  */
 export function createIcon(name: typeof UsedIcons[number], tooltip?: string) {
   const icon = document.createElement('iconify-icon');
-  icon.setAttribute('icon', name);
-  icon.setAttribute('inline', 'true');
-  tooltip && icon.setAttribute('title', tooltip);
+  icon.icon = name;
+  icon.inline = true;
+  if (tooltip)
+    icon.title = tooltip;
   return icon;
 }
