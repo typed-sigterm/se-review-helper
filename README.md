@@ -6,11 +6,19 @@ Detect audits in [Stack Exchange review queues](https://meta.stackexchange.com/h
 
 The extension will verify every review task as soon as the task is loaded.
 
-If the review is an **positive audit**[^1],
+If the incoming review is an audit:
+
+- the <kbd>Submit</kbd> button will turn black
+- if it's a **positive audit**[^1],
 <kbd>![](https://api.iconify.design/mdi/text-box-check.svg?color=%2318864B)</kbd>
-will be added beside the <kbd>Skip</kbd> button. If it's a **negative audit**[^2],
+will be added beside the <kbd>Skip</kbd> button
+- if it's a **negative audit**[^2],
 <kbd>![](https://api.iconify.design/mdi/text-box-remove.svg?color=%23C83232)</kbd>
-will be added.
+will be added beside the <kbd>Skip</kbd> button
+
+Screenshots:
+
+![Positive audit](./assets/screenshot_positive.png) ![Negative audit](./assets/screenshot_negative.png)
 
 ## Installation
 

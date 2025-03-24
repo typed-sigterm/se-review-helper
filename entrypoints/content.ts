@@ -49,7 +49,7 @@ function waitContainer() {
 
 const URL_PATH_RE = /\/review\/(?<type>first-answers|first-questions|late-answers)\/(?<id>\d+)/;
 
-function createAuditInfo() {
+function createAuditInfo(submitButton: HTMLButtonElement) {
   const area = document.createElement('div');
   area.style.display = 'inline-block';
   area.style.marginLeft = '4px';
@@ -73,18 +73,20 @@ function createAuditInfo() {
     .finally(() => spinner.remove())
 
     .then((ok) => {
-      if (ok === undefined) {
-        logger.debug('Not audit');
-      } else {
-        logger.debug('Audit answer:', ok);
-        area.style.cursor = 'help';
-        const icon = createIcon(
-          ok ? 'mdi:text-box-check' : 'mdi:text-box-remove',
-          `Known ${ok ? 'positive' : 'negative'} audit`,
-        );
-        area.appendChild(icon);
-        area.classList.add(ok ? 'fc-success' : 'fc-danger'); // from stackoverflow.design
-      }
+      if (ok === undefined)
+        return logger.debug('Not audit');
+      logger.debug('Audit answer:', ok);
+
+      area.style.cursor = 'help';
+      const icon = createIcon(
+        ok ? 'mdi:text-box-check' : 'mdi:text-box-remove',
+        `Known ${ok ? 'positive' : 'negative'} audit`,
+      );
+      area.appendChild(icon);
+      // from stackoverflow.design
+      area.classList.add(ok ? 'fc-success' : 'fc-danger');
+      submitButton.classList.add('bg-black');
+      submitButton.title = 'This is an audit';
     })
 
     .catch((e) => {
@@ -129,7 +131,7 @@ export default defineContentScript({
       }
 
       logger.debug('Creating DOM');
-      container.appendChild(createAuditInfo());
+      container.appendChild(createAuditInfo(container.querySelector('button')!));
     });
   },
 });
